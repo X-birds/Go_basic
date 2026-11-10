@@ -64,7 +64,7 @@ go run .
 | 变量 | 默认值 | 说明 |
 | --- | --- | --- |
 | `SERVER_PORT` | `8080` | 服务监听端口 |
-| `JWT_SECRET` | `dev-secret-change-me` | JWT 签名密钥（生产环境必须修改） |
+| `JWT_SECRET` | `ev-secret-change-me` | JWT 签名密钥（生产环境必须修改） |
 | `DB_PATH` | `blog.db` | SQLite 数据库文件路径 |
 
 PowerShell 示例：

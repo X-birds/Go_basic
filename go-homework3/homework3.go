@@ -163,7 +163,19 @@ func main() {
 	fmt.Println("测试数据插入成功！")
 
 	fmt.Println("=== 测试2：删除文章1的所有剩余评论 ===")
-	db.Where("post_id = ?", posts[0].ID).Delete(&Comment{})
+	// 注意：不能直接批量删除 db.Where(...).Delete(&Comment{})，
+	// 那样钩子收到的是空壳实例（PostID=0），拿不到被删评论的数据。
+	// 先查出真实评论，再逐条删除，钩子才能读到每条评论的 PostID。
+	var delComments []Comment
+	db.Where("post_id = ?", posts[0].ID).Find(&delComments)
+	for i := range delComments {
+		db.Delete(&delComments[i])
+	}
+
+	// 验证：钩子更新后的文章状态
+	var check Post
+	db.First(&check, posts[0].ID)
+	fmt.Printf("验证：文章《%s》当前评论状态：%s\n", check.Title, check.CommentStatus)
 
 	QueryUserPosts_With_Comments(db, 1)
 

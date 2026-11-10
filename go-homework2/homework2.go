@@ -20,11 +20,11 @@ func sum_ten(x *int) {
 // 题目 ：实现一个函数，接收一个整数切片的指针，将切片中的每个元素乘以2。
 // 考察点 ：指针运算、切片操作。
 func int_slice(s *[]int) {
-	fmt.Printf("修改前：%d\n", *s)
+	fmt.Printf("修改前：%v\n", *s)
 	for i := 0; i < len(*s); i++ {
 		(*s)[i] = (*s)[i] * 2
 	}
-	fmt.Printf("修改后：%d\n", *s)
+	fmt.Printf("修改后：%v\n", *s)
 }
 
 // ✅Goroutine
@@ -72,7 +72,7 @@ func (ts *TaskScheduler) RunTask(task Task) {
 	fmt.Printf("[%s]完成,耗时:%v\n", task.Name, duration)
 }
 
-func (ts TaskScheduler) runAll() {
+func (ts *TaskScheduler) runAll() {
 	for _, task := range ts.tasks {
 		ts.wg.Add(1)
 		go ts.RunTask(task)
@@ -194,7 +194,7 @@ func increment_1(id int, counter *int64, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for i := 0; i < 1000; i++ {
-		atomic.AddInt64(*&counter, 1)
+		atomic.AddInt64(counter, 1)
 	}
 	fmt.Printf("协程%d,已完成\n", id)
 }

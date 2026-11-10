@@ -27,3 +27,10 @@ go.work
 # OS files
 .DS_Store
 Thumbs.db
+
+# 参考代码（别人仓库的 clone，不属于本人作业）
+golang-learning-main/
+
+# 本地学习笔记
+学习笔记/
+

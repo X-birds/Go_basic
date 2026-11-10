@@ -162,7 +162,7 @@ func Merge(intervals [][]int) [][]int {
 
 		if last[1] >= curr[0] {
 			if last[1] >= intervals[i][1] {
-				break
+				continue
 			}
 			res[len(res)-1][1] = intervals[i][1]
 		} else {
@@ -181,9 +181,6 @@ func TwoSum(nums []int, target int) []int {
 	}
 	m := make(map[int]int)
 	for i := 0; i < len(nums); i++ {
-		if target < nums[i] {
-			break
-		}
 		need := target - nums[i]
 		if ids, ok := m[need]; ok {
 			return []int{ids, i}
